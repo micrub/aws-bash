@@ -127,6 +127,36 @@ Signature=$SIGNATURE"
 #   "Expiration" : "2014-07-04T13:55:44Z"
 # }
 function get_details_for_security_credential() {
+# on eb TODO
+: <<'END'
+curl -v -L http://169.254.169.254/latest/meta-data/iam/info
+*   Trying 169.254.169.254...
+* TCP_NODELAY set
+* Connected to 169.254.169.254 (169.254.169.254) port 80 (#0)
+> GET /latest/meta-data/iam/info HTTP/1.1
+> Host: 169.254.169.254
+> User-Agent: curl/7.53.1
+> Accept: */*
+> 
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Content-Type: text/plain
+< Accept-Ranges: bytes
+< ETag: "1821533918"
+< Last-Modified: Wed, 29 Aug 2018 05:59:27 GMT
+< Content-Length: 216
+< Connection: close
+< Date: Wed, 29 Aug 2018 06:23:39 GMT
+< Server: EC2ws
+< 
+{
+  "Code" : "Success",
+  "LastUpdated" : "2018-08-29T05:58:32Z",
+  "InstanceProfileArn" : "arn:aws:iam::125249547215:instance-profile/aws-elasticbeanstalk-ec2-role",
+  "InstanceProfileId" : "AIPAIINU3P3ZRSQOVRDS6"
+* Closing connection 0
+}[ec2-user@ip-10-0-1-211 ~]$ 
+END
   curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/$SECURITY_CREDENTIAL_NAME
 }
 
